@@ -1,4 +1,3 @@
-const data = require('../data');
 const types = ['weapons/weapon_', 'hats/hat_', 'body/body_', 'melee/melee_', 'sprays/', 'dyes/', 'waist/waist_', 'faces/face_', 'shoes/shoe_'];
 const weapons = ['', 'Bolt', 'AK', 'Pistol', 'SMG', 'Rev', 'Shot', 'LMG', 'Semi', 'RL', 'Uzis', 'Deagle', 'AB', 'Cross', 'Sawed Off', 'Famas', 'Auto', 'Bomb', '', 'Blaster'];
 const { Collection } = require('discord.js');
@@ -31,7 +30,7 @@ Skins.map(x => {
     return x;
 });
 module.exports.allSkins = Skins;
-module.exports.limited = require('../data/skins').limited;
+module.exports.limited = require('./src/skins').limited;
 
 const sortedRarities = [];
 for (let i = 0; i < 7; i++)
@@ -89,13 +88,6 @@ module.exports.textColorParse = async(index) => {
         return 'Spray';
 };
 
-module.exports.emoteColorParse = (index) => {
-    const res = [`${data.emotes.uncommon}`, `${data.emotes.rare}`, `${data.emotes.epic}`, `${data.emotes.legendary}`, `${data.emotes.relic}`, `${data.emotes.contraband}`, `${data.emotes.unobtainable}`][index];
-    if (res)
-        return res;
-    else
-        return 'Spray';
-};
 module.exports.colorParse = (color) => { //
     return ['#b2f252', '#2196F3', '#E040FB', '#FBC02D', '#ed4242', '#292929'][color] || '#fff53d';
 };
