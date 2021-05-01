@@ -45,7 +45,7 @@ module.exports.getPreview = (t) => {
     return 'https://assets.krunker.io/textures/' + (t.type && t.type == 4 ? 'sprays/' + t.id : 'previews/' + (t.type && (t.type < 3 || t.type > 4) ? 'cosmetics/' + t.type + '_' + t.id + (t.tex ? '_' + t.tex : '') : types[t.type || 0] + (t.type && t.type == 3 ? t.id + (t.pat == null ? t.tex == null ? '' : '_' + t.tex : '_c' + t.pat) : (t.weapon || 0) + '_' + (t.mid == null ? t.pat == null ? t.tex ? t.tex : t.id : 'c' + t.pat : 'm' + t.mid + (t.midT == null ? '' : '_' + t.midT))))) + '.png?build=u9K3c';
 };
 
-module.exports.getTexture = async(i) => {
+module.exports.getTexture = (i) => {
     // texSrc:null==t.mid?t.type&&3==t.type?t.pat?t.tex:"melee/melee_"+(t.id||0)+(t.tex?"_"+t.tex:""):t.type?t.tex?d.store.types[t.type||0]+t.id+"_"+t.tex:null:t.tex?t.tex:"weapons/skins/weapon_"+t.weapon+"_"+t.id:s.getReModel(d.store,t)
     let texture = 'https://assets.krunker.io/textures/';
 
@@ -80,7 +80,7 @@ module.exports.getTexture = async(i) => {
     return { e: emissive, t: texture };
 };
 
-module.exports.textColorParse = async(index) => {
+module.exports.textColorParse = (index) => {
     const res = ['Uncommon', 'Rare', 'Epic', 'Legendary', 'Relic', 'Contraband', 'Unobtainable'][index];
     if (res)
         return res;
@@ -92,13 +92,13 @@ module.exports.colorParse = (color) => { //
     return ['#b2f252', '#2196F3', '#E040FB', '#FBC02D', '#ed4242', '#292929'][color] || '#fff53d';
 };
 
-module.exports.getWeaponByID = async(id) => {
+module.exports.getWeaponByID = (id) => {
     // eslint-disable-next-line no-shadow
     const weapons = ['', 'Sniper Rifle', 'Assault Rifle', 'Pistol', 'SMG', 'Revolver', 'Shotgun', 'LMG', 'Semi-Auto', 'Rocket Launcher', 'Akimbo Uzi', 'Deagle', 'Alien Blaster', 'Alien Blaster', 'Crossbow', 'FAMAS', 'Sawed-Off', 'Auto Pistol', 'Bomb', ''];
     return weapons[id] || ' ';
 };
 
-module.exports.getModel = async(t) => {
+module.exports.getModel = (t) => {
     let model = 'https://assets.krunker.io/models/';
     /* if(t.weapon) {
         model += types[t.type||0]+(t.weapon||0)+"_"+(t.midT||t.mid)
@@ -117,7 +117,7 @@ module.exports.getModel = async(t) => {
     return model;
 };
 
-module.exports.getMarketLink = async(skin) => {
+module.exports.getMarketLink = (skin) => {
     if (~skin.index)
         return 'https://krunker.io/social.html?p=itemsales&i=' + skin.index;
     else
