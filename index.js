@@ -2,6 +2,22 @@ const types = ['weapons/weapon_', 'hats/hat_', 'body/body_', 'melee/melee_', 'sp
 const weapons = ['', 'Bolt', 'AK', 'Pistol', 'SMG', 'Rev', 'Shot', 'LMG', 'Semi', 'RL', 'Uzis', 'Deagle', 'AB', 'Cross', 'Sawed Off', 'Famas', 'Auto', 'Bomb', '', 'Blaster'];
 const { Collection } = require('discord.js');
 let Skins = require('./src/skins');
+const socialData = require('./src/socialHub').store.skins;
+Skins = Skins.map((x,i) => {
+    const newObj = {};
+    for (const [key, value] of Object.entries(x)) {
+        if (typeof value == 'number') parseFloat(value);
+        newObj[key] = value;
+    }
+    if (newObj.creator) x.creator = x.creator.replace('\x20', ' ');
+    if (newObj.req) delete newObj['req'];
+    return {
+        ...newObj,
+        index: i,
+        name: x.name.replace('\x20', ' ').replace('\x27', '\''),
+        preview: socialData[i]
+    };
+});
 
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
@@ -14,7 +30,6 @@ Skins.forEach(x => {
 const obj = new Collection(Object.entries(c).filter(([, v]) => v > 1));
 
 Skins = Skins.map((skin, i) => {
-    skin.index = i;
     const count = obj.get(skin.name);
     if (!count) return skin;
     if (skin.weapon !== undefined)
