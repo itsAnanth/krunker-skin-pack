@@ -15,7 +15,7 @@ Skins = Skins.map((x,i) => {
         ...newObj,
         index: i,
         name: x.name.replace('\x20', ' ').replace('\x27', '\''),
-        preview: socialData[i]
+        preview: socialData[i].preview
     };
 });
 
