@@ -17,7 +17,7 @@ if (!process.argv.includes('b')) {
     .then(async res => {
         console.info('Got Krunker Data...');
         const text = await res.text();
-        const index = text.indexOf('iîìiíiï[\'exports\'][\'skins\']=[{');
+        const index = text.indexOf('iîíîiîï[\'exports\'][\'skins\']=[{');
         const newT = text.substring(index + 28);
         const indexE = newT.indexOf('}]');
         let string = 'module.exports = ' + newT.substring(0, indexE + 2);
@@ -33,14 +33,14 @@ if (!process.argv.includes('b')) {
         string += '\n' + limString + ';\n';
         string = '/* eslint-disable max-statements-per-line */\n/* eslint-disable no-dupe-keys */\n' + string;
         string = string.replaceAll('},{', '},\n{');
-        await require('fs').writeFileSync('./data/skins_dat.js', string);
+        await require('fs').writeFileSync('./src/skins.js', string);
         console.log('Parsed and written to file...\nRunning Eslint now..');
         eslint();
     });
 }
 
 const eslint = () => {
-    require('child_process').exec('./node_modules/.bin/eslint --fix data/skins_dat.js', (err, stdOut, stdErr) => {
+    require('child_process').exec('./node_modules/.bin/eslint --fix src/skins.js', (err, stdOut, stdErr) => {
         if (err) console.error(err);
         if (stdOut) console.log(stdOut);
         if (stdErr) console.error(err);
