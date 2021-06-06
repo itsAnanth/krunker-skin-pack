@@ -17,7 +17,7 @@ if (!process.argv.includes('b')) {
     .then(async res => {
         console.info('Got Krunker Data...');
         const text = await res.text();
-        const index = text.indexOf('iîíîiîï[\'exports\'][\'skins\']=[{');
+        const index = text.indexOf('iìïîîïi[\'exports\'][\'skins\']=[{');
         const newT = text.substring(index + 28);
         const indexE = newT.indexOf('}]');
         let string = 'module.exports = ' + newT.substring(0, indexE + 2);
