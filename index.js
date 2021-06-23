@@ -1,5 +1,5 @@
 const types = ['weapons/weapon_', 'hats/hat_', 'body/body_', 'melee/melee_', 'sprays/', 'dyes/', 'waist/waist_', 'faces/face_', 'shoes/shoe_'];
-const weapons = ['', 'Bolt', 'AK', 'Pistol', 'SMG', 'Rev', 'Shot', 'LMG', 'Semi', 'RL', 'Uzis', 'Deagle', 'AB', 'Cross', 'Sawed Off', 'Famas', 'Auto', 'Bomb', '', 'Blaster'];
+const weapons = ['', 'Bolt', 'AK', 'Pistol', 'SMG', 'Rev', 'Shot', 'LMG', 'Semi', 'RL', 'Uzis', 'Deagle', 'AB', 'Sawed Off', 'Cross', 'Famas', 'Auto', 'Bomb', '', 'Blaster'];
 const { Collection } = require('discord.js');
 let Skins = require('./src/skins');
 const socialData = require('./src/socialHub').store.skins;
