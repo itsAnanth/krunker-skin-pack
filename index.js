@@ -3,7 +3,7 @@ const weapons = ['', 'Bolt', 'AK', 'Pistol', 'SMG', 'Rev', 'Shot', 'LMG', 'Semi'
 const { Collection } = require('discord.js');
 let Skins = require('./src/skins');
 const socialData = require('./src/socialHub').store.skins;
-Skins = Skins.map((x,i) => {
+Skins = Skins.map((x, i) => {
     const newObj = {};
     for (const [key, value] of Object.entries(x)) {
         if (typeof value == 'number') parseFloat(value);
