@@ -1,5 +1,5 @@
-const types = ['weapons/weapon_', 'hats/hat_', 'body/body_', 'melee/melee_', 'sprays/', 'dyes/', 'waist/waist_', 'faces/face_', 'shoes/shoe_'];
-const weapons = ['', 'Bolt', 'AK', 'Pistol', 'SMG', 'Rev', 'Shot', 'LMG', 'Semi', 'RL', 'Uzis', 'Deagle', 'AB', 'Sawed Off', 'Cross', 'Famas', 'Auto', 'Bomb', '', 'Blaster'];
+const types = ['weapons/weapon_', 'hats/hat_', 'body/body_', 'melee/melee_', 'sprays/', 'dyes/', 'waist/waist_', 'faces/face_', 'shoes/shoe_', 'pets/pet_','collectibles/collect_'];
+const weapons = ['', 'Bolt', 'AK', 'Pistol', 'SMG', 'Rev', 'Shot', 'LMG', 'Semi', 'RL', 'Uzis', 'Deagle', 'AB', 'Sawed Off', 'Cross', 'Famas', 'Auto', 'Bomb', '', 'Blaster', ''];
 const { Collection } = require('discord.js');
 let Skins = require('./src/skins');
 const socialData = require('./src/socialHub').store.skins;
@@ -32,9 +32,14 @@ const obj = new Collection(Object.entries(c).filter(([, v]) => v > 1));
 Skins = Skins.map((skin, i) => {
     const count = obj.get(skin.name);
     if (!count) return skin;
-    if (skin.weapon !== undefined)
+    try {
+        if (skin.weapon !== undefined)
         skin.name = `${skin.name} ${weapons[skin.weapon]}`;
-    else skin.name = `${skin.name} ${types[skin.type].split('/')[1].replace('_', '').capitalize()}`;
+        else skin.name = `${skin.name} ${types[skin.type].split('/')[1].replace('_', '').capitalize()}`;
+    } catch {
+        console.log(skin)
+    }
+    
     return skin;
 });
 c = {};
