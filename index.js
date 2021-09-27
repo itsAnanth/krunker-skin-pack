@@ -1,6 +1,8 @@
-const types = ['weapons/weapon_', 'hats/hat_', 'body/body_', 'melee/melee_', 'sprays/', 'dyes/', 'waist/waist_', 'faces/face_', 'shoes/shoe_', 'pets/pet_','collectibles/collect_'];
+const types = ['weapons/weapon_', 'hats/hat_', 'body/body_', 'melee/melee_', 'sprays/', 'dyes/', 'waist/waist_', 'faces/face_', 'shoes/shoe_', 'pets/pet_', 'collectibles/collect_'];
 const weapons = ['', 'Bolt', 'AK', 'Pistol', 'SMG', 'Rev', 'Shot', 'LMG', 'Semi', 'RL', 'Uzis', 'Deagle', 'AB', 'Sawed Off', 'Cross', 'Famas', 'Auto', 'Bomb', '', 'Blaster', ''];
-const { Collection } = require('discord.js');
+const { Collection } = require('@discordjs/collection');
+const classes = require('./src/classes');
+
 let Skins = require('./src/skins');
 const socialData = require('./src/socialHub').store.skins;
 Skins = Skins.map((x, i) => {
@@ -29,17 +31,16 @@ Skins.forEach(x => {
 });
 const obj = new Collection(Object.entries(c).filter(([, v]) => v > 1));
 
-Skins = Skins.map((skin, i) => {
+Skins = Skins.map(skin => {
     const count = obj.get(skin.name);
     if (!count) return skin;
     try {
-        if (skin.weapon !== undefined)
-        skin.name = `${skin.name} ${weapons[skin.weapon]}`;
+        if (skin.weapon !== undefined) skin.name = `${skin.name} ${weapons[skin.weapon]}`;
         else skin.name = `${skin.name} ${types[skin.type].split('/')[1].replace('_', '').capitalize()}`;
     } catch {
-        console.log(skin)
+        console.log(skin);
     }
-    
+
     return skin;
 });
 c = {};
@@ -100,6 +101,35 @@ module.exports.getTexture = (i) => {
     return { e: emissive, t: texture };
 };
 
+const getViewerSuffix = (id) => {
+    const skin = Skins[id];
+    if (skin) {
+        if (skin.type == 1) return 'class=9&hat=' + id;
+        else if (skin.type == 2) return 'class=9&back=' + id;
+        else if (skin.type == 3) return 'class=9&hidePlayer&melee=' + id;
+        else if (skin.type == 5) return 'class=9&dye=' + id;
+        else if (skin.type == 6) return 'class=9&waist=' + id;
+        else if (skin.type == 7) return 'class=9&face=' + id;
+        else if (skin.type == 8) return 'class=9&shoe=' + id;
+        else if (skin.type == 9) return 'class=9&pet=' + id;
+        else if (skin.weapon != null) {
+            if (classes[skin.weapon - 1]['secondary']) return 'hidePlayer&swap=-1&nosup&skinIdS=' + id + '&secIndex=' + (skin['weapon'] - 0x1);
+            else {
+                let className;
+                for (let i = 0; i < classes['length']; i++) {
+                    if (classes[i].loadout[0] == skin['weapon'] - 1) {
+                        className = i;
+                        break;
+                    }
+                }
+                return className != null && 'class=' + className + '&hidePlayer&nosup&skinIdP=' + id;
+            }
+        }
+    }
+    throw new Error('Error ID didn\'t work' + id);
+};
+
+module.exports.getViewer = (id) => 'https://krunker.io/viewer.html?' + getViewerSuffix(id);
 module.exports.textColorParse = (index) => {
     const res = ['Uncommon', 'Rare', 'Epic', 'Legendary', 'Relic', 'Contraband', 'Unobtainable'][index];
     if (res)
