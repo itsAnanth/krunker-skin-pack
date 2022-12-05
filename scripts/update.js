@@ -17,16 +17,16 @@ if (!process.argv.includes('b')) {
         .then(async res => {
             console.info('Got Krunker Data...');
             const text = await res.text();
-            const index = text.indexOf('[\'exports\'][\'skins\']=[{');
-            const newT = text.substring(index + 21);
+            const index = text.indexOf('e.exports.skins=[{');
+            const newT = text.substring(index + 16);
             const indexE = newT.indexOf('}]');
             let string = 'module.exports = ' + newT.substring(0, indexE + 2);
 
-            const limI = text.indexOf('iîìiíiï[\'exports\'][\'skins\']=[{');
-            console.log(limI);
-            const limT = text.substring(limI + 100);
-            const limE = limT.indexOf('[\'exports\'][\'limited\']=');
-            const endIndex = limT.indexOf('];');
+            // const limI = text.indexOf('iîìiíiï[\'exports\'][\'skins\']=[{');
+            // console.log(limI);
+            // const limT = text.substring(limI + 100);
+            // const limE = limT.indexOf('[\'exports\'][\'limited\']=');
+            // const endIndex = limT.indexOf('];');
 
 
             const limString = 'module.exports.limited=[]';
