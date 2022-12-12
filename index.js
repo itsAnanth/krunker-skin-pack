@@ -1,5 +1,28 @@
-const types = ['weapons/weapon_', 'hats/hat_', 'body/body_', 'melee/melee_', 'sprays/', 'dyes/', 'waist/waist_', 'faces/face_', 'shoes/shoe_', 'pets/pet_', 'collectibles/collect_'];
-const weapons = ['', 'Bolt', 'AK', 'Pistol', 'SMG', 'Rev', 'Shot', 'LMG', 'Semi', 'RL', 'Uzis', 'Deagle', 'AB', 'Sawed Off', 'Cross', 'Famas', 'Auto', 'Bomb', '', 'Blaster', ''];
+const types = ['weapons/weapon_', 'hats/hat_', 'body/body_', 'melee/melee_', 'sprays/', 'dyes/', 'waist/waist_', 'faces/face_', 'shoes/shoe_', 'pets/pet_', 'collectibles/collect_', 'wrist/wrist_', 'charms/charm_', 'tickets/ticket_'];
+const weapons =
+    ['', 'Bolt', 'AK', 'Pistol', 'SMG', 'Rev', 'Shot', 'LMG', 'Semi',
+        'RL', 'Uzis', 'Deagle', 'AB', 'Sawed Off', 'Cross', 'Famas', 'Auto',
+        'Bomb', '', 'Blaster', '', 'Grappler', 'Tehchy', 'Noob Tube', 'Slimer',
+        'Zapper', 'Minigun', 'War Machine', 'Akimbo Pistol', 'Charge Rifle'];
+
+// eslint-disable-next-line no-unused-vars
+const weaponNames = [
+    'Sniper Rifle', 'Assault Rifle',
+    'Pistol', 'Submachine Gun',
+    'Revolver', 'Shotgun',
+    'Machine Gun', 'Semi Auto',
+    'Rocket Launcher', 'Akimbo Uzi',
+    'Desert Eagle', 'Alien Blaster',
+    'Combat Knife', 'Crossbow',
+    'Famas', 'Sawed Off',
+    'Auto Pistol', 'Bomb',
+    'Blaster', 'Build Tool',
+    'Grappler', 'Tehchy-9',
+    'Noob Tube', 'Slimer',
+    'Zapper', 'Minigun',
+    'War Machine', 'Akimbo Pistol',
+    'Charge Rifle'
+];
 const { Collection } = require('@discordjs/collection');
 const classes = require('./src/classes');
 
@@ -35,10 +58,11 @@ Skins = Skins.map(skin => {
     const count = obj.get(skin.name);
     if (!count) return skin;
     try {
+        if (skin.keyW == 'Face') skin.type = 1;
         if (skin.weapon !== undefined) skin.name = `${skin.name} ${weapons[skin.weapon]}`;
         else skin.name = `${skin.name} ${types[skin.type].split('/')[1].replace('_', '').capitalize()}`;
-    } catch {
-        console.log(skin);
+    } catch (e) {
+        console.log(e, skin, 'SKIN NAME COULDN\'T BE DETERMINED');
     }
 
     return skin;
